@@ -21,22 +21,19 @@ class History extends Component {
   // This function gets the ETH price for a specific timestamp/date. The date is passed in as an argument
   getETHPrices(date) {
     return axios.get(
-      'https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=' +
-        date
+      `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${date}&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c31`
     );
   }
   // This function gets the BTC price for a specific timestamp/date. The date is passed in as an argument
   getBTCPrices(date) {
     return axios.get(
-      'https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=' +
-        date
+      `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${date}&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c31`
     );
   }
   // This function gets the LTC price for a specific timestamp/date. The date is passed in as an argument
   getLTCPrices(date) {
     return axios.get(
-      'https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=' +
-        date
+      `https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=${date}&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c3`
     );
   }
   // This function gets the prices for the current date.

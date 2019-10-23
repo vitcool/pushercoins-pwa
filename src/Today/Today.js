@@ -17,7 +17,7 @@ class Today extends Component {
   componentWillMount() {
     axios
       .get(
-        'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD'
+        'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c31'
       )
       .then(response => {
         // We set the latest prices in the state to the prices gotten from Cryptocurrency.

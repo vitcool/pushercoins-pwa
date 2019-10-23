@@ -9,6 +9,7 @@ import History from './History/History';
 
 class App extends Component {
   render() {
+    console.log('STAAAAARTS');
     return (
       <div className=''>
         <div className='topheader'>
