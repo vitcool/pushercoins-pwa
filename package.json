@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "moment": "^2.24.0",
+    "pusher": "^3.0.0",
+    "pusher-js": "^5.0.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
@@ -15,6 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000",
+  "main": "server.js",
   "eslintConfig": {
     "extends": "react-app"
   },

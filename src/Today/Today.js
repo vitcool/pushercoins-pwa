@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 import './Today.css';
 
@@ -13,23 +14,57 @@ class Today extends Component {
       ethprice: ''
     };
   }
+  componentDidMount() {
+    setInterval(() => {
+      axios
+        .get(
+          'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c31'
+        )
+        .then(response => {
+          this.sendPricePusher(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, 10000);
+    // We bind to the 'prices' event and use the data in it (price information) to update the state values, thus, realtime changes
+    this.prices.bind(
+      'prices',
+      price => {
+        this.setState({ btcprice: price.prices.BTC.USD });
+        this.setState({ ethprice: price.prices.ETH.USD });
+        this.setState({ ltcprice: price.prices.LTC.USD });
+      },
+      this
+    );
+  }
   // This is called when an instance of a component is being created and inserted into the DOM.
   componentWillMount() {
+    // establish a connection to Pusher
+    this.pusher = new Pusher('7c82a895027713da7459', {
+      cluster: 'eu',
+      encrypted: true
+    });
+    // Subscribe to the 'coin-prices' channel
+    this.prices = this.pusher.subscribe('coin-prices');
+    this.prices.bind('prices', function(data) {
+      alert(JSON.stringify(data));
+    });
+  }
+
+  sendPricePusher(data) {
     axios
-      .get(
-        'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD&api_key=f0e5aed9f3cebd750f2fecb5149492f0a7810f1c60e18eff0dff3c0ee40f0c31'
-      )
-      .then(response => {
-        // We set the latest prices in the state to the prices gotten from Cryptocurrency.
-        this.setState({ btcprice: response.data.BTC.USD });
-        this.setState({ ethprice: response.data.ETH.USD });
-        this.setState({ ltcprice: response.data.LTC.USD });
+      .post('/prices/new', {
+        prices: data
       })
-      // Catch any error here
+      .then(response => {
+        console.log(response);
+      })
       .catch(error => {
         console.log(error);
       });
   }
+
   // The render method contains the JSX code which will be compiled to HTML.
   render() {
     return (
