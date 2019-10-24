@@ -47,9 +47,6 @@ class Today extends Component {
     });
     // Subscribe to the 'coin-prices' channel
     this.prices = this.pusher.subscribe('coin-prices');
-    this.prices.bind('prices', function(data) {
-      alert(JSON.stringify(data));
-    });
   }
 
   sendPricePusher(data) {
